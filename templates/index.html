@@ -1,0 +1,110 @@
+{% extends 'base.html' %}
+{% block title %}Home{% endblock title %}
+{% block body %}
+
+<div class="container">
+    <h1 class="display-4">Image Color Palette Generator</h1>
+    <div class="card">
+        <div class="card-body">
+            <p>Upload your image:</p>
+            <form method="post" enctype="multipart/form-data">
+                <input type="file" name="file">
+                <button class="btn btn-primary m-2" type="submit">Upload</button>
+            </form>
+        </div>
+    </div>
+
+    <hr>
+
+    <div class="container ">
+        {% if filename %}
+        <div class="card">
+            <div class="card-body">
+                <h1>Your Image:</h1>
+                <img src="{{ url_for('display_image', filename=filename) }}" class="img-fluid" alt="Your Uploaded Image">
+            </div>
+          </div>
+        <hr>
+        {% endif %}
+        {% if colors %}
+        <h1 class="display-4">Top 10 Colors in your image:</h1>
+        <hr>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Sr No.</th>
+                    <th scope="col">Hexacode</th>
+                    <th scope="col">Color</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for color in top10_colors %}
+                <tr>
+                    <th scope="row">{{loop.index}}</th>
+                    <td>{{ color[0] }}</td>
+                    <td>
+                        <div style="background-color:{{ color[0] }}; width:100px; height:30px; display:inline-block">
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <hr>
+
+        <h1 class="display-4">Top 50 Colors in your image:</h1>
+        <hr>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Sr No.</th>
+                    <th scope="col">Hexacode</th>
+                    <th scope="col">Color</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for color in top50_colors %}
+                <tr>
+                    <th scope="row">{{loop.index}}</th>
+                    <td>{{ color[0] }}</td>
+                    <td>
+                        <div style="background-color:{{ color[0] }}; width:100px; height:30px; display:inline-block">
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <hr>
+
+        <h1 class="display-4">All Colors in your image:</h1>
+        <hr>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Sr No.</th>
+                    <th scope="col">Hexacode</th>
+                    <th scope="col">Color</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for color in colors %}
+                <tr>
+                    <th scope="row">{{loop.index}}</th>
+                    <td>{{ color[0] }}</td>
+                    <td>
+                        <div style="background-color:{{ color[0] }}; width:100px; height:30px; display:inline-block">
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <div class="alert alert-primary" role="alert">
+            <strong>No image found.</strong>Please upload your image now!
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock body %}
