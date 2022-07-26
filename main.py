@@ -1,5 +1,4 @@
 from flask import Flask, render_template, flash, request, redirect, url_for
-from flask_login import current_user
 from werkzeug.utils import secure_filename
 from flask_bootstrap import Bootstrap
 import numpy as np
